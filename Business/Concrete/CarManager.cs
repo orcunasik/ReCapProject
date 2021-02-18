@@ -74,7 +74,7 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.CarUnitPriceInValid);
             }
-            _carDal.Add(car);
+            _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
         }
     }

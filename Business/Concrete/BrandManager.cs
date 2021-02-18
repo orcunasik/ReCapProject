@@ -48,7 +48,7 @@ namespace Business.Concrete
         {
             if (brand.BrandName.Length >= 2)
             {
-                _brandDal.Add(brand);
+                _brandDal.Update(brand);
                 return new SuccessResult(Messages.BrandUpdated);
             }
             return new ErrorResult(Messages.BrandInValid);

@@ -39,7 +39,7 @@ namespace Business.Constans
         public static string RentalInValid = "Araç kiralanamaz, teslim edilmesi bekleniyor";
         public static string RentalDeleted = "Araca ait kiralama düşüldü";
         public static string RentalUpdated = "Araç kiralama bilgisi güncellendi";
-        public static string RentalUpdatedReturnDate = "Aracın teslim alındı";
+        public static string RentalUpdatedReturnDate = "Arac teslim alındı";
         public static string RentalReturnDateError = "Aracın daha önce teslim alınmış";
 
         public static string MaintenanceTime = "Sistem Bakımdadır";
