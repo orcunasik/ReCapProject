@@ -43,6 +43,9 @@ namespace Business.Constans
         public static string RentalReturnDateError = "Aracın daha önce teslim alınmış";
 
         public static string MaintenanceTime = "Sistem Bakımdadır";
-
+        public static string FailAddedImageLimit = "Bir araca ait resim sayısı aşıldı";
+        public static string CarImageAdded = "Araç resmi eklendi";
+        public static string CarImageDeleted = "Araç resmi silindi";
+        public static string CarImageUpdated = "Araç Resmi Güncellendi";
     }
 }

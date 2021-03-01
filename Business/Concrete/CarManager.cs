@@ -9,6 +9,10 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
 using System.Text;
+using FluentValidation;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingCorcerns.Validation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -20,14 +24,11 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-                return new SuccessResult(Messages.CarAdded);
-            }
-            return new ErrorResult(Messages.CarUnitPriceInValid);
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
         }
 
         public IResult Delete(Car car)
@@ -70,12 +71,12 @@ namespace Business.Concrete
 
         public IResult Update(Car car)
         {
-            if (car.DailyPrice < 0)
+            if (car.DailyPrice > 0)
             {
-                return new ErrorResult(Messages.CarUnitPriceInValid);
+                _carDal.Update(car);
+                return new SuccessResult(Messages.CarUpdated);
             }
-            _carDal.Update(car);
-            return new SuccessResult(Messages.CarUpdated);
+            return new ErrorResult(Messages.CarUnitPriceInValid);
         }
     }
 }
