@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -22,22 +23,14 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            if (CheckReturnDate(rental.CarId).Success)
-            {
-                _rentalDal.Add(rental);
-                return new SuccessResult(CheckReturnDate(rental.CarId).Message);
-            }
-            return new ErrorResult(CheckReturnDate(rental.CarId).Message);
-            
-        }
+            IResult result = BusinessRules.Run(CheckIfCar(rental));
 
-        public IResult CheckReturnDate(int id)
-        {
-            var result = _rentalDal.GetRentalDetails(x => x.CarId == id && x.ReturnDate == null);
-            if (result.Count > 0)
+            if (result != null)
             {
-                return new ErrorResult(Messages.RentalInValid);
+                return result;
             }
+
+            _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
 
@@ -53,18 +46,6 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentalUpdated);
         }
 
-        public IResult UpdateReturnDate(int id)
-        {
-            var result = _rentalDal.GetAll(x => x.CarId == id);
-            var updateRent = result.LastOrDefault();
-            if (updateRent.ReturnDate != null)
-            {
-                return new ErrorResult(Messages.RentalReturnDateError);
-            }
-            updateRent.ReturnDate = DateTime.Now;
-            _rentalDal.Update(updateRent);
-            return new SuccessResult(Messages.RentalUpdatedReturnDate);
-        }
 
         public IDataResult<List<Rental>> GetAll()
         {
@@ -88,7 +69,18 @@ namespace Business.Concrete
                 return new ErrorDataResult<List<RentalDetailDto>>(Messages.MaintenanceTime);
             }
 
-            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(x =>x.CarId == id));
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(x => x.CarId == id));
+        }
+
+        private IResult CheckIfCar(Rental rental)
+        {
+            var result = _rentalDal.GetAll(c => c.CarId == rental.CarId && c.ReturnDate > DateTime.Now).ToList();
+            if (result.Count != 0)
+            {
+                return new ErrorResult(Messages.RentalInValid);
+            }
+
+            return new SuccessResult();
         }
 
     }
