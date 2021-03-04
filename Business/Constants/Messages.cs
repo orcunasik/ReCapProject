@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
-namespace Business.Constans
+namespace Business.Constants
 {
     public class Messages
     {
@@ -43,9 +45,18 @@ namespace Business.Constans
         public static string RentalReturnDateError = "Aracın daha önce teslim alınmış";
 
         public static string MaintenanceTime = "Sistem Bakımdadır";
+
         public static string FailAddedImageLimit = "Bir araca ait resim sayısı aşıldı";
         public static string CarImageAdded = "Araç resmi eklendi";
         public static string CarImageDeleted = "Araç resmi silindi";
         public static string CarImageUpdated = "Araç Resmi Güncellendi";
+
+        public static string UserNotFound = "Kullanıcı Bulunamadı";
+        public static string PasswordError = "Kullanıcı Parolası Eşleşmedi";
+        public static string SuccessfulLogin = "Kullanıcı Girişi Başarılı";
+        public static string UserAlreadyExists = "Bu Kullancı Zaten Mevcut";
+        public static string UserRegistered = "Kullanıcı Kaydı Başarılı";
+        public static string AccessTokenCreated = "AccessToken Başarıyla Oluşturuldu";
+        public static string AuthorizationDenied = "Yetkiniz Yok";
     }
 }

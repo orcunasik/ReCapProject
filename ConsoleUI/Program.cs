@@ -3,6 +3,7 @@ using Entities.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using System;
+using Core.Entities.Concrete;
 
 namespace ConsoleUI
 {
@@ -55,7 +56,7 @@ namespace ConsoleUI
             }
         }
 
-        private static void UserTest()
+        /*private static void UserTest()
         {
             UserManager userManager = new UserManager(new EfUserDal());
             var result = userManager.Add
@@ -64,15 +65,15 @@ namespace ConsoleUI
                 {
                     FirstName = (Console.ReadLine()),
                     LastName = (Console.ReadLine()),
-                    Email = (Console.ReadLine()),
-                    Password = (Console.ReadLine())
+                    Email = (Console.ReadLine())
+
                 }
                 ); 
             if (result.Success)
             {
                 Console.WriteLine(result.Message);
             }
-        }
+        }*/
 
         private static void CustomerTest()
         {
